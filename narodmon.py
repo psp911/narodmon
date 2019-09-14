@@ -1,14 +1,16 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-# by Pavlov Sergey psp911 @ yandex.ru
+# by Roman Vishnevsky aka.x0x01 @ gmail.com
 
 import socket
 import Adafruit_DHT as dht
+import sys
 
 
-# MAC адрес прибора. Заменить на свой! Без двоеточий
-DEVICE_MAC = '0123456789012'
-
+# MAC адрес прибора. Заменить на свой!
+#DEVICE_MAC = '0123456789012'
+#b8:27:eb:5c:95:a8
+DEVICE_MAC = 'b827eb5c95a8'
 
 
 # идентификатор прибора, для простоты добавляется 01 (02) к mac прибора
@@ -26,9 +28,14 @@ sensor_value_1 = temperature2
 #sensor_value_2 = -20.25
 sensor_value_2 = humidity2
 
+if (humidity2 is not None) and (temperature2 is not None):
+    # создание сокета
+    sock = socket.socket()
+else:
+    print("Exit, Error DHT: value None")
+    sys.exit()
 
-# создание сокета
-sock = socket.socket()
+
 
 # обработчик исключений
 try:
